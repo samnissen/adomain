@@ -23,7 +23,7 @@ Optionally, you can strip subdomains or keep 'www' subdomains -- see below.
 `[]` is an alias for `Adomain.subdomain()`
 
 ```ruby
-Adomain["http://abc.xyz.com"] == Adomain.subdomain "http://abc.xyz.com"
+Adomain["http://abc.xyz.com"] == Adomain.subdomain("http://abc.xyz.com")
 # => true
 ```
 
