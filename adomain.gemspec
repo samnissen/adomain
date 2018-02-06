@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["samuel.nissen@rakuten.com"]
 
   spec.summary       = %q{Simple, uncomplicated, schemed domain parsing using Addressable}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/samnissen/adomain"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
