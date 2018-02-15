@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "adomain"
   spec.version       = Adomain::VERSION
   spec.authors       = ["Sam Nissen"]
-  spec.email         = ["samuel.nissen@rakuten.com"]
+  spec.email         = ["scnissen@gmail.com"]
 
   spec.summary       = %q{Simple, uncomplicated, schemed domain parsing using Addressable}
   spec.homepage      = "https://github.com/samnissen/adomain"
