@@ -57,6 +57,20 @@ Adomain["hola"]     # => nil
 Adomain["::::::::"] # => nil
 Adomain[""]         # => Addressable::URI::InvalidURIError
 Adomain["{}"]       # => Addressable::URI::InvalidURIError
+Gem::Version.new(Adomain::VERSION) >= Gem::Version.new(0.2) # => false
+```
+
+#### WARNING: All InvalidURIError will be caught in >= version 0.2
+
+When 0.2 is released, `Addressable::URI::InvalidURIError`s will be caught
+and ignored. Nil will be returned.
+
+```ruby
+Gem::Version.new(Adomain::VERSION) >= Gem::Version.new(0.2) # => true
+Adomain["hola"]     # => nil
+Adomain["::::::::"] # => nil
+Adomain[""]         # => nil
+Adomain["{}"]       # => nil
 ```
 
 ## Installation
