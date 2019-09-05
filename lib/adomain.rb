@@ -1,8 +1,17 @@
 require "adomain/version"
 require "addressable/uri"
+require "logger"
 
 class Adomain
   class << self
+
+    ADDRESSABLE_WARNING = %{
+      WARNING: breaking change planned:
+        Adomain will catch Addressable::URI::InvalidURIError.
+        This error will be caught in version 0.2.
+        Any code relying on the error will break.
+    }.gsub(/\s+/, ' ').strip
+
     # [] is a convenience method to subdomain the URL,
     # or optionally domain or subdomain_www.
     #   Adomain["http://abc.xyz.com"]               # => "abc.xyz.com"
@@ -75,6 +84,14 @@ class Adomain
         domain ||= uri.host
 
         return domain
+      rescue Addressable::URI::InvalidURIError => e
+        logger.warn ADDRESSABLE_WARNING
+
+        raise e
       end
+
+      def logger
+        @logger ||= defined?(Rails) ? Rails.logger : Logger.new(STDOUT)
+      end # https://stackoverflow.com/a/30623846/1651458
   end
 end

@@ -44,6 +44,10 @@ RSpec.describe Adomain do
       it "should return nil for wholly irrelevant strings" do
         expect( Adomain.domain "::::::::::" ).to be_nil
       end
+
+      it "should raise an error for Addressable-breaking strings" do
+        expect{ Adomain.domain "{}" }.to raise_error{ Addressable::URI::InvalidURIError }
+      end
     end
   end
 
