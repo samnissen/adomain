@@ -86,4 +86,38 @@ RSpec.describe Adomain do
     end
   end
 
+  describe "#scheme" do
+    context "string represents a URL" do
+      subject { Adomain.scheme "http://www.name.com" }
+      it { is_expected.to eq "http" }
+    end
+
+    context "string represents an invalid URL" do
+      it "should return scheme even for partial urls" do
+        expect( Adomain.scheme "http://aloha" ).to eq("http")
+      end
+
+      it "should return nil for wholly irrelevant strings" do
+        expect( Adomain.scheme "::::::::::" ).to be_nil
+      end
+    end
+  end
+
+  describe "#path" do
+    context "string represents a URL" do
+      subject { Adomain.path "http://www.name.com/custom/path" }
+      it { is_expected.to eq "/custom/path" }
+    end
+
+    context "string represents an invalid URL" do
+      it "should return an empty string for partial urls" do
+        expect( Adomain.path "http://aloha" ).to eq("")
+      end
+
+      it "should return nil for wholly irrelevant strings" do
+        expect( Adomain.scheme "::::::::::" ).to be_nil
+      end
+    end
+  end
+
 end

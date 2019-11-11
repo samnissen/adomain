@@ -41,6 +41,22 @@ class Adomain
       subdomain(string, true)
     end
 
+    # scheme is a wrapper around Addressable::URI's scheme
+    # it is only included for convenience
+    def scheme(string)
+      Addressable::URI.parse(string).scheme
+    rescue Addressable::URI::InvalidURIError => e
+      nil
+    end
+
+    # path is a wrapper around Addressable::URI's path
+    # it is only included for convenience
+    def path(string)
+      Addressable::URI.parse(string).path
+    rescue Addressable::URI::InvalidURIError => e
+      nil
+    end
+
     private
       # parse_for_domain accepts one hash of arguments that allow
       # changes to the parsing behavior of domains
