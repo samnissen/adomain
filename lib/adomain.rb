@@ -4,14 +4,6 @@ require "logger"
 
 class Adomain
   class << self
-
-    ADDRESSABLE_WARNING = %{
-      WARNING: breaking change planned:
-        Adomain will catch Addressable::URI::InvalidURIError.
-        This error will be caught in version 0.2.
-        Any code relying on the error will break.
-    }.gsub(/\s+/, ' ').strip
-
     # [] is a convenience method to subdomain the URL,
     # or optionally domain or subdomain_www.
     #   Adomain["http://abc.xyz.com"]               # => "abc.xyz.com"
@@ -85,9 +77,7 @@ class Adomain
 
         return domain
       rescue Addressable::URI::InvalidURIError => e
-        logger.warn ADDRESSABLE_WARNING
-
-        raise e
+        nil
       end
 
       def logger

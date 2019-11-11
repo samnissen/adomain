@@ -45,8 +45,9 @@ RSpec.describe Adomain do
         expect( Adomain.domain "::::::::::" ).to be_nil
       end
 
-      it "should raise an error for Addressable-breaking strings" do
-        expect{ Adomain.domain "{}" }.to raise_error{ Addressable::URI::InvalidURIError }
+      it "should return nil for Addressable-breaking strings" do
+        expect{ Adomain.domain "{}" }.not_to raise_error
+        expect( Adomain.domain "{}" ).to be_nil
       end
     end
   end
