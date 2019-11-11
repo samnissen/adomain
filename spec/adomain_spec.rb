@@ -45,8 +45,9 @@ RSpec.describe Adomain do
         expect( Adomain.domain "::::::::::" ).to be_nil
       end
 
-      it "should raise an error for Addressable-breaking strings" do
-        expect{ Adomain.domain "{}" }.to raise_error{ Addressable::URI::InvalidURIError }
+      it "should return nil for Addressable-breaking strings" do
+        expect{ Adomain.domain "{}" }.not_to raise_error
+        expect( Adomain.domain "{}" ).to be_nil
       end
     end
   end
@@ -81,6 +82,40 @@ RSpec.describe Adomain do
 
       it "should return nil for wholly irrelevant strings" do
         expect( Adomain.subdomain_www "::::::::::" ).to be_nil
+      end
+    end
+  end
+
+  describe "#scheme" do
+    context "string represents a URL" do
+      subject { Adomain.scheme "http://www.name.com" }
+      it { is_expected.to eq "http" }
+    end
+
+    context "string represents an invalid URL" do
+      it "should return scheme even for partial urls" do
+        expect( Adomain.scheme "http://aloha" ).to eq("http")
+      end
+
+      it "should return nil for wholly irrelevant strings" do
+        expect( Adomain.scheme "::::::::::" ).to be_nil
+      end
+    end
+  end
+
+  describe "#path" do
+    context "string represents a URL" do
+      subject { Adomain.path "http://www.name.com/custom/path" }
+      it { is_expected.to eq "/custom/path" }
+    end
+
+    context "string represents an invalid URL" do
+      it "should return an empty string for partial urls" do
+        expect( Adomain.path "http://aloha" ).to eq("")
+      end
+
+      it "should return nil for wholly irrelevant strings" do
+        expect( Adomain.scheme "::::::::::" ).to be_nil
       end
     end
   end
