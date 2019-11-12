@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    adomain (0.2.1)
+    adomain (0.2.3)
       addressable (~> 2.5)
       logger
 

@@ -50,9 +50,16 @@ class Adomain
     end
 
     # path is a wrapper around Addressable::URI's path
-    # it is only included for convenience
+    # with a major difference -- it removes the domain components
+    # from the string, if the domain is parseable. This is because
+    # Addressable leaves it in, for reasons I can't understand.
     def path(string)
-      Addressable::URI.parse(string).path
+      if self.subdomain_www(string)
+        substring = /\A#{Regexp.quote(self.subdomain_www(string))}/
+        Addressable::URI.parse(string).path.gsub(substring, '')
+      else
+        Addressable::URI.parse(string).path
+      end
     rescue Addressable::URI::InvalidURIError => e
       nil
     end
