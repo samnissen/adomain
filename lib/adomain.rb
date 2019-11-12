@@ -57,6 +57,14 @@ class Adomain
       nil
     end
 
+    # query_values is a wrapper around Addressable::URI's query_values
+    # it is only included for convenience
+    def query_values(string)
+      Addressable::URI.parse(string).query_values
+    rescue Addressable::URI::InvalidURIError => e
+      nil
+    end
+
     private
       # parse_for_domain accepts one hash of arguments that allow
       # changes to the parsing behavior of domains
