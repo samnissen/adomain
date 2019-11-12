@@ -109,6 +109,21 @@ RSpec.describe Adomain do
       it { is_expected.to eq "/custom/path" }
     end
 
+    context "string represents a partial URL with www" do
+      subject { Adomain.path "www.name.com/custom/path" }
+      it { is_expected.to eq "/custom/path" }
+    end
+
+    context "string represents a partial URL with other subdomain" do
+      subject { Adomain.path "abc.name.co.uk/custom/path" }
+      it { is_expected.to eq "/custom/path" }
+    end
+
+    context "string represents a partial URL with no subdomain" do
+      subject { Adomain.path "name.co.nz/custom/path" }
+      it { is_expected.to eq "/custom/path" }
+    end
+
     context "string represents an invalid URL" do
       it "should return an empty string for partial urls" do
         expect( Adomain.path "http://aloha" ).to eq("")
