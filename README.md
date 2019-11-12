@@ -88,6 +88,8 @@ Adomain.path "http://www.xyz.com/pages/123" # => "/pages/123"
 Adomain.path "{{{{{" # => "{{{{{"
 Adomain.scheme "http://www.xyz.com/pages/123" # => "http"
 Adomain.scheme "harrison:ford" # => "harrison"
+Adomain.query_values "https://maximumfun.org/donate?amt=20USD" # => {"amt"=>"20USD"}
+Adomain.query_values "google.com?q=gagh.biz" # => {"q"=>"gagh.biz"}
 ```
 
 However, they are rescued from InvalidURIError,
@@ -96,6 +98,7 @@ like in other parts of the gem.
 ```ruby
 Adomain.path "::::::::::::" #=> nil
 Adomain.scheme "::::::::::::" #=> nil
+Adomain.query_values "::::::::::::" #=> nil
 ```
 
 ## Installation

@@ -120,4 +120,21 @@ RSpec.describe Adomain do
     end
   end
 
+  describe "#query_values" do
+    context "string represents a URL" do
+      subject { Adomain.query_values "http://www.name.com/custom/path?params=123&other=abc" }
+      it { is_expected.to eq({"params" => "123", "other" => "abc"}) }
+    end
+
+    context "string represents an invalid URL" do
+      it "should return empty strings for partial urls" do
+        expect( Adomain.query_values "http://aloha?&=" ).to eq({"" => ""})
+      end
+
+      it "should return nil for wholly irrelevant strings" do
+        expect( Adomain.query_values ":::::::::?:" ).to be_nil
+      end
+    end
+  end
+
 end
